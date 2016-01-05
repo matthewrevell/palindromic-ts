@@ -1,43 +1,27 @@
-function findAndReturnPalindromes(stringToCheck, numberOfPalindromes, retainNumbers){
+// Interface definitions
+
+
+
+// Function definitions
+
+function findAndReturnPalindromes(stringToCheck: string, numberOfPalindromes: number, retainNumbers: boolean){
     // Accepts: a string to be checked for palindromes, an integer to specify
     // the number of palindromes to return and a boolean specifying whether to
     // retain (true) or strip (false) numbers from the string.
     // Returns: an array of palindrome strings.
     // Dependencies: lodash
     
-    // Check the parameters are valid
-    
-    if (_.isString(stringToCheck) === false) {
-        return 'stringToCheck must be a string, not a ' + typeof stringToCheck;
-    }
-    
-    if (stringToCheck.length === 0) {
-        return 'stringToCheck must be longer than 0';
-    }
-    
-    if (_.isNumber(numberOfPalindromes) === false) {
-        return 'numberOfPalindromes must be a number, not a ' + typeof numberOfPalindromes;        
-    }
-    
-    if (numberOfPalindromes < 1) {
-        return 'numberOfPalindromes must be at least 1';
-    }
-    
-    if (_.isBoolean(retainNumbers) === false) {
-        return 'retainNumbers must be a boolean, not a ' + typeof retainNumbers;        
-    }
-    
     // Prepare the provided string by stripping punctuation, spaces and optionally numbers.
     // Adds separators at even positions, leaving the original characters at odd positions.
-    var separatedString = prepareString(stringToCheck, retainNumbers);
+    var separatedString: string = prepareString(stringToCheck, retainNumbers);
     
     // For each position in the string (including the separator positions)
     // finds the extent to which a palindrome extends left and right.
-    var positionsArray = findPalindromesCentres(separatedString);
+    var positionsArray:number[] = findPalindromesCentres(separatedString);
     
     // Takes the prepared string, the array of palindrome positions and then
     // returns the specified X longest palindromes found.
-    var topPalindromes = retrievePalindromeStrings(separatedString, positionsArray, numberOfPalindromes);
+    var topPalindromes: string[] = retrievePalindromeStrings(separatedString, positionsArray, numberOfPalindromes);
     
     return topPalindromes;
 }
@@ -55,10 +39,10 @@ function findPalindromesCentres(separatedString) {
     // characters to the left and right of the position that make up its longest
     // palindrome.
     
-    var stringLength = separatedString.length;
-    var positionArray = Array(stringLength).fill(0);
-    var offset;
-    var i;
+    var stringLength: number = separatedString.length;
+    var positionArray: number[] = Array(stringLength).fill(0);
+    var offset: number;
+    var i: number;
     
     //console.log('string: ' + stringToCheck);
     console.log('stringLength: ' + stringLength);    
@@ -108,16 +92,16 @@ function retrievePalindromeStrings(stringToCheck, positionsArray, numberOfPalind
     // Returns: an array of the X longest palindromes, as strings.
         
     var topPalindromes = Array(numberOfPalindromes).fill('');
-    var thereIsAPalindrome = false;
+    var thereIsAPalindrome: boolean = false;
     var stringLength = stringToCheck.length;
     var palindromePositionsWithOffsets = [];
     var tempPalindromeDetails = {};
-    var palindromeWithCommas = '';
-    var i;
-    var centre = 0;
-    var start = 0;
-    var end = 0;    
-    var offset = 0;
+    var palindromeWithCommas: string = '';
+    var i: number;
+    var centre: number = 0;
+    var start: number = 0;
+    var end: number = 0;    
+    var offset: number = 0;
     
     // Can return a minimum of one palindrome
     console.log(numberOfPalindromes);
@@ -214,7 +198,8 @@ function prepareString(stringToCheck, retainNumbers) {
     }
     
     // Strip any whitespace and punctuation from the string, optionally numbers as well
-	stringStripped = stringToCheck.replace(regexString,'');
+	   
+    stringStripped = stringToCheck.replace(regexString,'');
     console.log('stringStripped: ' + stringStripped);
     stringLowered = stringStripped.toLowerCase();
     console.log('stringLowered: ' + stringLowered);
